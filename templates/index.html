@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Tic Tac Toe</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .tabuleiro {
+            display: grid;
+            grid-template-columns: repeat(3, 80px);
+            gap: 5px;
+            margin: 20px auto;
+            width: max-content;
+        }
+        .casa {
+            width: 80px; height: 80px;
+            font-size: 2em;
+            display: flex; align-items: center; justify-content: center;
+            border: 2px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tic Tac Toe</h1>
+    <div>
+        {% for msg in messages %}
+        <p>{{msg}}</p>
+        {% endfor %}
+    </div>
+    {% if not atual %}
+        <form action="/escolher" method="post">
+            <label>Player 1, change X or O:</label>
+            <input type="text" name="simbolo" maxlength="1" required>
+            <button type="submit">Check</button>
+        </form>
+    {% else %}
+        <div class="tabuleiro">
+            {% for i in range(9) %}
+            <div class="casa">{{ tab[i] }}</div>
+            {% endfor %}
+        </div>
+        <form action="/jogar" method="post">
+            <label>Player ({{ atual }}), change a position (0-8):</label>
+            <input type="number" name="posicao" min="0" max="8" required>
+            <button type="submit">Play</button>
+        </form>
+    {% endif %}
+    <p><a href="/reset">Restart game</a> </p>
+</body>
+</html>
